@@ -1,0 +1,61 @@
+name: Build Demo
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-demo:
+    runs-on: ubuntu-latest
+    name: Build Project Demo
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dir: ./frontend/node_modules
+    
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+    
+    - name: Install Frontend Dependencies
+      run: |
+        cd frontend
+        npm ci
+    
+    - name: Install Backend Dependencies
+      run: |
+        cd backend
+        pip install -r requirements.txt
+    
+    - name: Build Frontend
+      run: |
+        cd frontend
+        npm run build
+      env:
+        NEXT_PUBLIC_API_URL: http://localhost:8001
+    
+    - name: Verify Backend
+      run: |
+        cd backend/src
+        python -c "import sys; sys.path.insert(0, '.'); from server import app; print('✓ Backend server ready')"
+    
+    - name: Create Build Summary
+      run: |
+        echo "## Build Summary" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "✅ Frontend build completed successfully" >> $GITHUB_STEP_SUMMARY
+        echo "✅ Backend verification completed successfully" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### Project Structure" >> $GITHUB_STEP_SUMMARY
+        echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+        tree -L 2 -I 'node_modules|__pycache__|.next' >> $GITHUB_STEP_SUMMARY || find . -maxdepth 2 -type d -not -path '*/node_modules*' -not -path '*/__pycache__*' -not -path '*/.next*' | head -20 >> $GITHUB_STEP_SUMMARY
+        echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+
