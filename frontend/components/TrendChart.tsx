@@ -57,7 +57,6 @@ export default function TrendChart({ data }: TrendChartProps) {
                 padding: '8px',
                 color: '#111827'
               }}
-              className="dark:bg-gray-800 dark:border-gray-700 dark:text-white"
             />
             <Line
               type="monotone"

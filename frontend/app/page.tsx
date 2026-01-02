@@ -39,6 +39,7 @@ export default function Home() {
     if (currentPage === 'dashboard') {
       loadProjects();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage]);
 
   useEffect(() => {
