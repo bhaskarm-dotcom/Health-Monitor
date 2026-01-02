@@ -1,0 +1,17 @@
+{
+  "dimension_weights": {
+    "delivery_health": 0.30,
+    "workload_balance": 0.20,
+    "communication_sentiment": 0.25,
+    "risk_signals": 0.15,
+    "momentum_trend": 0.10
+  },
+  "health_thresholds": {
+    "healthy": 80,
+    "watch": 60
+  },
+  "aging_task_threshold_days": 7,
+  "overload_threshold_tasks": 10,
+  "underutilization_threshold_tasks": 2
+}
+

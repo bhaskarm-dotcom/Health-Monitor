@@ -1,0 +1,6 @@
+{
+  "sentiment_analysis": "Analyze the sentiment of the following text. Respond with only one word: 'positive', 'neutral', or 'negative'. Text: {text}",
+  "recommendations": "Based on the following project health analysis, provide 3-5 specific, actionable recommendations to improve the project health score.\n\nHealth Score: {score}/100\nStatus: {status}\n\nDimension Breakdown:\n{breakdown}\n\nDetected Risks:\n{risks}\n\nProvide recommendations in the following format:\n1. [Title] - [Description] (Priority: high/medium/low, Category: [category])\n2. [Title] - [Description] (Priority: high/medium/low, Category: [category])\n...",
+  "risk_explanation": "Explain why the project health score is {score} and what are the main risk drivers. Be concise and specific. Health Score Breakdown: {breakdown}"
+}
+
